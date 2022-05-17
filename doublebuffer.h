@@ -3,6 +3,9 @@
 #include <vector>
 #include <mutex>
 #include <condition_variable>
+#include "stdio.h"
+using namespace std;
+
 
 class DoubleBuffer
 {
@@ -16,12 +19,12 @@ public:
 
 private:
     uint16_t m_size;
-    std::vector<int16_t> *m_firstBuffer;
-    std::vector<int16_t> *m_secondBuffer;
+    vector<int16_t> *m_firstBuffer;
+    vector<int16_t> *m_secondBuffer;
     bool m_full;
     int16_t m_sequence;
 
-    std::mutex m_lock;
-    std::condition_variable m_cvfull;
+    mutex m_lock;
+    condition_variable m_cvfull;
 
 };
