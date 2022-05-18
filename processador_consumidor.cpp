@@ -28,7 +28,7 @@ void produce(int id) {
     UNLOCK_STDOUT;
     for(int i=0; i<ROUNDS; i++) {
         LOCK_STDOUT;
-        cout << "Producer:" << "Round #" << i << endl;
+        cout << "Producer"<< id << ": Round #" << i << endl;
         UNLOCK_STDOUT;
         for(int j=0; j<BUFFER_SIZE;j++) {
             default_random_engine generator;
