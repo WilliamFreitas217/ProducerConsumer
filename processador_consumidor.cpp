@@ -10,9 +10,9 @@ using namespace this_thread;
 using namespace chrono;
 
 #define BUFFER_SIZE 20
-#define CONSUMERS 9
-#define PRODUCERS 2
-#define ROUNDS 5
+#define CONSUMERS 4
+#define PRODUCERS 4
+#define ROUNDS 2
 #define REC_DELAY 20
 
 
@@ -75,8 +75,10 @@ int main() {
     }
     /* Wait for all consumers */
     sleep_for (milliseconds(500));
+    int aux = 0;
     for(; i<CONSUMERS+PRODUCERS; i++) {
-        threads[i] = thread(produce, i);
+        threads[i] = thread(produce, aux);
+        aux ++;
     }
     /* Wait for all producers */
     sleep_for (milliseconds(500));
