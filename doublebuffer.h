@@ -16,7 +16,6 @@ class DoubleBuffer{
     private:
         int m_size;
         vector<int> *m_firstBuffer;
-        vector<int> *m_secondBuffer;
         bool m_full;
         int m_sequence;
 
