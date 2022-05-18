@@ -53,7 +53,7 @@ void consume(int id) {
     LOCK_STDOUT;
     cout << "Consumer" << id << ": Starting to consume" << endl;
     UNLOCK_STDOUT;
-    while(round < ROUNDS) {
+    while(true) {
         LOCK_STDOUT;
         cout << "Consumer" << id << ": Waiting for data to be ready." << endl;
         UNLOCK_STDOUT;
