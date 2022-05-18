@@ -7,15 +7,15 @@
 using namespace std;
 
 
-class DoubleBuffer{
+class Buffer{
     public:
-        DoubleBuffer(int size=0);
+        Buffer(int size=0);
         bool write(int pos, int value);
         int wait_until_full(int called_sequence);
 
     private:
         int m_size;
-        vector<int> *m_firstBuffer;
+        vector<int> *m_buffer;
         bool m_full;
         int m_sequence;
 

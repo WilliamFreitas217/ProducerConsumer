@@ -3,7 +3,7 @@
 #include <random>
 #include <thread>
 #include <mutex>
-#include "doublebuffer.h"
+#include "buffer.h"
 
 using namespace std;
 using namespace this_thread;
@@ -11,7 +11,7 @@ using namespace chrono;
 
 #define BUFFER_SIZE 20
 #define CONSUMERS 9
-#define PRODUCERS 4
+#define PRODUCERS 2
 #define ROUNDS 5
 #define REC_DELAY 20
 
@@ -19,7 +19,7 @@ using namespace chrono;
  *          William do Vale Cavalcante Freitas
  */
 
-DoubleBuffer buffer(BUFFER_SIZE);
+Buffer buffer(BUFFER_SIZE);
 
 mutex coutlck;
 #define LOCK_STDOUT   coutlck.lock()
