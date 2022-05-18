@@ -10,9 +10,7 @@ using namespace std;
 class DoubleBuffer{
     public:
         DoubleBuffer(int size=0);
-        ~DoubleBuffer();
         bool write(int pos, int value);
-        int read(int pos);
         int wait_until_full(int called_sequence);
 
     private:

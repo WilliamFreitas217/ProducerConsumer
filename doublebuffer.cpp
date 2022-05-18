@@ -16,11 +16,6 @@ DoubleBuffer::DoubleBuffer(int size)
     m_secondBuffer->resize(size);
 }
 
-DoubleBuffer::~DoubleBuffer(){
-    free(m_firstBuffer);
-    free(m_secondBuffer);
-}
-
 bool DoubleBuffer::write(int pos, int value)
 {
     unique_lock<mutex> l(m_lock);
@@ -40,10 +35,6 @@ bool DoubleBuffer::write(int pos, int value)
     else {
         return false;
     }
-}
-
-int DoubleBuffer::read(int pos){
-    return m_secondBuffer->at(pos);
 }
 
 int  DoubleBuffer::wait_until_full(int called_sequence){

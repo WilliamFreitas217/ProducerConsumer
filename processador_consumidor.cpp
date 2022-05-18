@@ -15,6 +15,9 @@ using namespace chrono;
 #define ROUNDS 5
 #define REC_DELAY 20
 
+/* Alunos:  Nádila da Silva de Azevedo
+ *          William do Vale Cavalcante Freitas
+ */
 
 DoubleBuffer buffer(BUFFER_SIZE);
 
