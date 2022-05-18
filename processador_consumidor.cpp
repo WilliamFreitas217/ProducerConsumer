@@ -24,11 +24,11 @@ mutex coutlck;
 
 void produce(int id) {
     LOCK_STDOUT;
-    cout << "Producer:" << "Starting to produce" << endl;
+    cout << "Producer" << id << ": Starting to produce" << endl;
     UNLOCK_STDOUT;
     for(int i=0; i<ROUNDS; i++) {
         LOCK_STDOUT;
-        cout << "Producer" << id << ": Starting to produce" << endl;
+        cout << "Producer:" << "Round #" << i << endl;
         UNLOCK_STDOUT;
         for(int j=0; j<BUFFER_SIZE;j++) {
             default_random_engine generator;
@@ -39,7 +39,7 @@ void produce(int id) {
         }
     }
     LOCK_STDOUT;
-    cout << "Producer:" << "Finished with producing" << endl;
+    cout << "Producer" << id << ": Finished with producing" << endl;
     UNLOCK_STDOUT;
 }
 
@@ -78,6 +78,8 @@ int main() {
     for(; i<CONSUMERS+PRODUCERS; i++) {
         threads[i] = thread(produce, i);
     }
+    /* Wait for all producers */
+    sleep_for (milliseconds(500));
 //    threads[CONSUMERS+PRODUCERS-1] = thread(produce);
     /* Join all threads */
     for(auto& th : threads) th.join();
