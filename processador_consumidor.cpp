@@ -10,9 +10,9 @@ using namespace this_thread;
 using namespace chrono;
 
 #define BUFFER_SIZE 20
-#define CONSUMERS 4
+#define CONSUMERS 9
 #define PRODUCERS 4
-#define ROUNDS 2
+#define ROUNDS 5
 #define REC_DELAY 20
 
 
@@ -80,8 +80,8 @@ int main() {
         threads[i] = thread(produce, aux);
         aux ++;
     }
-    /* Wait for all producers */
-    sleep_for (milliseconds(500));
+//    /* Wait for all producers */
+//    sleep_for (milliseconds(500));
 //    threads[CONSUMERS+PRODUCERS-1] = thread(produce);
     /* Join all threads */
     for(auto& th : threads) th.join();
