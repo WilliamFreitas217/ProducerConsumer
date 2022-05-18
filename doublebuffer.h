@@ -9,18 +9,18 @@ using namespace std;
 
 class DoubleBuffer{
     public:
-        DoubleBuffer(uint16_t size=0);
+        DoubleBuffer(int size=0);
         ~DoubleBuffer();
-        bool write(uint16_t pos, int16_t value);
-        int16_t read(uint16_t pos);
-        int16_t wait_until_full(int16_t called_sequence);
+        bool write(int pos, int value);
+        int read(int pos);
+        int wait_until_full(int called_sequence);
 
     private:
-        uint16_t m_size;
-        vector<int16_t> *m_firstBuffer;
-        vector<int16_t> *m_secondBuffer;
+        int m_size;
+        vector<int> *m_firstBuffer;
+        vector<int> *m_secondBuffer;
         bool m_full;
-        int16_t m_sequence;
+        int m_sequence;
 
         mutex m_lock;
         condition_variable m_cvfull;

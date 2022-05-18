@@ -11,7 +11,7 @@ using namespace chrono;
 
 #define BUFFER_SIZE 20
 #define CONSUMERS 9
-#define PRODUCERS 3
+#define PRODUCERS 2
 #define ROUNDS 5
 #define REC_DELAY 20
 
@@ -46,7 +46,7 @@ void produce(int id) {
 void consume(int id) {
     int round = 0;
     int sequence = -1;
-    int old_sequence = -1;
+    int old_sequence;
     LOCK_STDOUT;
     cout << "Consumer" << id << ": Starting to consume" << endl;
     UNLOCK_STDOUT;

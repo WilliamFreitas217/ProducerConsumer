@@ -5,13 +5,13 @@
 
 using namespace std;
 
-DoubleBuffer::DoubleBuffer(uint16_t size)
+DoubleBuffer::DoubleBuffer(int size)
         : m_size(size)
         , m_full(false)
         , m_sequence(0)
 {
-    m_firstBuffer = new vector<int16_t>;
-    m_secondBuffer = new vector<int16_t>;
+    m_firstBuffer = new vector<int>;
+    m_secondBuffer = new vector<int>;
     m_firstBuffer->resize(size);
     m_secondBuffer->resize(size);
 }
@@ -21,7 +21,7 @@ DoubleBuffer::~DoubleBuffer(){
     free(m_secondBuffer);
 }
 
-bool DoubleBuffer::write(uint16_t pos, int16_t value)
+bool DoubleBuffer::write(int pos, int value)
 {
     unique_lock<mutex> l(m_lock);
     if(pos < m_size) {
@@ -42,11 +42,11 @@ bool DoubleBuffer::write(uint16_t pos, int16_t value)
     }
 }
 
-int16_t DoubleBuffer::read(uint16_t pos){
+int DoubleBuffer::read(int pos){
     return m_secondBuffer->at(pos);
 }
 
-int16_t  DoubleBuffer::wait_until_full(int16_t called_sequence){
+int  DoubleBuffer::wait_until_full(int called_sequence){
     unique_lock<mutex> l(m_lock);
     while(!(m_full && m_sequence != called_sequence)) {
         m_cvfull.wait(l);
