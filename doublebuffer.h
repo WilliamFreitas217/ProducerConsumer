@@ -7,24 +7,21 @@
 using namespace std;
 
 
-class DoubleBuffer
-{
+class DoubleBuffer{
+    public:
+        DoubleBuffer(uint16_t size=0);
+        ~DoubleBuffer();
+        bool write(uint16_t pos, int16_t value);
+        int16_t read(uint16_t pos);
+        int16_t wait_until_full(int16_t called_sequence);
 
-public:
-    DoubleBuffer(uint16_t size=0);
-    ~DoubleBuffer();
-    bool write(uint16_t pos, int16_t value);
-    int16_t read(uint16_t pos);
-    int16_t wait_until_full(int16_t called_sequence);
+    private:
+        uint16_t m_size;
+        vector<int16_t> *m_firstBuffer;
+        vector<int16_t> *m_secondBuffer;
+        bool m_full;
+        int16_t m_sequence;
 
-private:
-    uint16_t m_size;
-    vector<int16_t> *m_firstBuffer;
-    vector<int16_t> *m_secondBuffer;
-    bool m_full;
-    int16_t m_sequence;
-
-    mutex m_lock;
-    condition_variable m_cvfull;
-
+        mutex m_lock;
+        condition_variable m_cvfull;
 };

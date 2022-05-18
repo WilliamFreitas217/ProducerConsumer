@@ -10,9 +10,9 @@ using namespace this_thread;
 using namespace chrono;
 
 #define BUFFER_SIZE 20
-#define CONSUMERS 4
-#define PRODUCERS 1
-#define ROUNDS 20
+#define CONSUMERS 9
+#define PRODUCERS 3
+#define ROUNDS 5
 #define REC_DELAY 20
 
 
@@ -22,13 +22,13 @@ mutex coutlck;
 #define LOCK_STDOUT   coutlck.lock()
 #define UNLOCK_STDOUT coutlck.unlock()
 
-void produce() {
+void produce(int id) {
     LOCK_STDOUT;
     cout << "Producer:" << "Starting to produce" << endl;
     UNLOCK_STDOUT;
     for(int i=0; i<ROUNDS; i++) {
         LOCK_STDOUT;
-        cout << "Producer:" << "Round #" << i << endl;
+        cout << "Producer" << id << ": Starting to produce" << endl;
         UNLOCK_STDOUT;
         for(int j=0; j<BUFFER_SIZE;j++) {
             default_random_engine generator;
@@ -69,12 +69,16 @@ void consume(int id) {
 
 int main() {
     thread threads[CONSUMERS+PRODUCERS];
-    for(int i=0; i<CONSUMERS; i++) {
+    int i=0;
+    for(; i<CONSUMERS; i++) {
         threads[i] = thread(consume, i);
     }
     /* Wait for all consumers */
     sleep_for (milliseconds(500));
-    threads[CONSUMERS+PRODUCERS-1] = thread(produce);
+    for(; i<CONSUMERS+PRODUCERS; i++) {
+        threads[i] = thread(produce, i);
+    }
+//    threads[CONSUMERS+PRODUCERS-1] = thread(produce);
     /* Join all threads */
     for(auto& th : threads) th.join();
 
